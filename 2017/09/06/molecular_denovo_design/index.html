@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="keywords" content="hexo, autumn">
+    <title>
+        Life is Worth Living
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@1.0.0/dist/hexo-infinite-scroll.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@1.0.0/dist/hexo-infinite-scroll.min.js"></script>
+    <script>
+        infiniteScroll()
+
+        // for mobile menu
+        $(function () {
+            $('.social-button').click(function () {
+                if ($('.social-links').hasClass('hide-links')) {
+                    $('.social-links').removeClass('hide-links')
+                } else {
+                    $('.social-links').addClass('hide-links')
+                }
+            })
+        })
+    </script>
+</head>
+
+    <body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <div class="container">
+            <header class="header">
+    <h1 class="title">
+        <a href="/" class="logo">
+            Life is Worth Living
+        </a>
+    </h1>
+    <h2 class="desc">
+        
+    </h2>
+
+    <nav class="links">
+        <button class="social-button">
+            menu
+        </button>
+        <ul class="social-links hide-links">
+            
+                <li>
+                    <a href="https://github.com/Birdlet">
+                        Github
+                    </a>
+                </li>
+                
+        </ul>
+    </nav>
+</header>
+                <main class="main">
+                    <article class="post">
+    
+    
+    
+    <h2 class="post-title">
+        论文笔记：药物de novo设计与深度增强学习
+    </h2>
+    <ul class="post-date">
+        <li>
+            2017-09-06
+        </li>
+        <li>
+            Birdlet
+        </li>
+    </ul>
+    <div class="post-content">
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>最近拜读了一篇来自AstraZeneca R&amp;D的深度学习结合化学信息学的文章，<a href="https://jcheminf.springeropen.com/articles/10.1186/s13321-017-0235-x" target="_blank" rel="noopener">Molecular De-Novo Design through Deep Reinforcement Learning</a>。在这篇文章中，作者Marcus Olivecrona使用了RNN的方法进行了inverse QSAR，从而达到设计新的活性药物分子。而且作者的方法中可以通过inforcement learning增加各种限制，从而达到精准的调控。作者的Github项目地址在<a href="https://github.com/MarcusOlivecrona/REINVENT" target="_blank" rel="noopener">这里</a>。由于文章比较复杂，因此在这里稍作笔记以深入学习。</p>
+<a id="more"></a>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>传统方法的药物筛选的空间可达10<sup>60</sup> ~ 10<sup>100</sup>的可合成分子。</p>
+<h4 id="1-1-经典-de-novo-设计方法包括："><a href="#1-1-经典-de-novo-设计方法包括：" class="headerlink" title="1.1. 经典 de novo 设计方法包括："></a>1.1. 经典 <em>de novo</em> 设计方法包括：</h4><ol>
+<li>从化学空间和带电性上进行增长。 缺点：产生的分子具有较差的药代动力学(DMPK)性质</li>
+<li>有机合成专家设计同系物。缺点：思维受限</li>
+<li>反向定量构效关系Inverse QSAR：从活性数据产生QSAR，再将QSAR反向生成结构组合。缺点：QSAR的descriptor可能不可逆，难以反向生成结构。</li>
+</ol>
+<h4 id="1-2-卷积神经网络RNN："><a href="#1-2-卷积神经网络RNN：" class="headerlink" title="1.2. 卷积神经网络RNN："></a>1.2. 卷积神经网络RNN：</h4><p>RNN通常被用于连续性数据(Sequencial Data)的建模，比如自然语言处理NLP，或音乐的自动编程。Segler等人证明，RNN在canonical SMILES的模型训练中，可以正确的学习到它的语法和化学空间分布；他们也在进一步的训练中证明了微调(fine-tuned)的模型可以预测大部分的活性。另外，有最近的两篇文章也指出增强学习reinforcement learning方法可以fine tune预训练的RNN模型。</p>
+<h2 id="2-Method"><a href="#2-Method" class="headerlink" title="2. Method"></a>2. Method</h2><h4 id="2-1-Recurrent-Neural-Network"><a href="#2-1-Recurrent-Neural-Network" class="headerlink" title="2.1. Recurrent Neural Network"></a>2.1. Recurrent Neural Network</h4><p>RNN可以利用步骤之间的对称性的同时保持追踪之前步骤中，可能影响当前步骤的，最突出信息。它通过引入<strong><em>cell</em></strong>概念达成这一目的。对任意步骤<strong>_t_</strong>，<strong><em>cell<sub>t</sub></em></strong>是前一个<strong><em>cell<sub>t-1</sub></em></strong>和当前输入<strong><em>x<sup>t-1</sup></em></strong>的输出结果。<strong><em>cell<sub>t</sub></em></strong>的内容即会影响当前的输出，也会影响下一步下一个cell状态。因此network就有了对过去状态的<strong>记忆</strong>，用以处理当前的新数据。因此RNN很适合做自然语言处理，在这一前提下，一个词组序列就可以编码为one-hot vector <strong>_X_</strong>。两个额外的tokens，<strong>_GO_</strong>，<strong><em>EOS</em></strong>被用来指代序列的开头和结尾。</p>
+<h5 id="2-1-1-Learning-the-data"><a href="#2-1-1-Learning-the-data" class="headerlink" title="2.1.1 Learning the data"></a>2.1.1 Learning the data</h5><p>训练RNN的方法同常使用极大似然估计，如，在给予前一步token的情况下，最大化在目标序列中下一个token <strong><em>x<sup>t</sup></em></strong>的log极大似然度。每一步模型都会生成一个基于下一个可能的词character的概率分布函数，而目标就是最大化对应正确token的极大似然度：</p>
+<blockquote>
+<p>J(Θ) = −∑<sup>T</sup><sub>t=1</sub> logP(x<sub>t</sub>∣x<sub>t−1</sub>,…,x<sub>1</sub>)</p>
+</blockquote>
+<p>损失函数cost function L(Θ)，通常作用于一个训练样本的子集，即batch，并且基于神经网络的参数$\theta$进行最小化。给出步骤t的一个预测的likelihood log _P_，对应于Θ的预测的梯度，被用来更新Θ。这一方法即back-propagation。另外，因为RNN中参数的改变，不仅仅影响当前时间_t_下的直接输出，也会迭代地影响前一个cell输出当前cell的信息流。这一多米诺现象在RNN中被称作back-propagation throught time(BPTT)。</p>
+<p>由于BPTT的处理中会出现多次自乘，所以有可能会导致梯度爆炸或梯度消失。因此Hochreiter等人提出了<strong>Long-Short-Term Memory cell (LSTM)</strong>，即可以在信息流中更可控地决定哪些信息被保留，而哪些信息被丢失。<strong>Gated Recurrent Unit (GRU)</strong>就是一种简单的可以实现减少计算消耗和实现大部分能效的LSTM架构。</p>
+<p><img src="http://media.springernature.com/lw785/springer-static/image/art%3A10.1186%2Fs13321-017-0235-x/MediaObjects/13321_2017_235_Fig2_HTML.gif" alt="Figure. 2"><br><strong>Figure 2. Sequence generation by a trained RNN</strong></p>
+<h5 id="2-1-2-Generating-new-samples"><a href="#2-1-2-Generating-new-samples" class="headerlink" title="2.1.2 Generating new samples"></a>2.1.2 Generating new samples</h5><p>一旦RNN被训练适用于目标序列后，它就可以根据训练集学习中产生的<strong>条件概率分布</strong>生成新的序列。第一个给出的input是<strong>_GO_</strong> token，然后在我们每次根据预测的概率分布<strong><em>P(X<sup>t</sup>)</em></strong>对output token <strong><em>x<sup>t</sup></em></strong>采样后，同时使用<strong><em>x<sup>t</sup></em></strong>作为下一步的input。</p>
+<h5 id="2-1-3-Tokenizing-and-one-hot-encoding-SMILES"><a href="#2-1-3-Tokenizing-and-one-hot-encoding-SMILES" class="headerlink" title="2.1.3 Tokenizing and one-hot encoding SMILES"></a>2.1.3 Tokenizing and one-hot encoding SMILES</h5><p>SMILES被用于以字符串来表示分子结构的方法。SMILES在tokenize过程中，单字符原子的单个字符被视为一个token，双字符原子的两个字符(如，Br、Cl)被视为一个token，特殊的环境结构(如，咪唑的[nH])也被视为一个token。根据这一规则，在训练集中总计有86种不同的tokens。Figure 3 举例了分子表示为SMILES和one-hot vector的情况。</p>
+<p><img src="http://media.springernature.com/lw785/springer-static/image/art%3A10.1186%2Fs13321-017-0235-x/MediaObjects/13321_2017_235_Fig3_HTML.gif" alt="Figure. 3"></p>
+<p><strong>Figure 3. Three representations of 4-(chloromethyl)-1H-imidazole.</strong></p>
+<p>Three representations of 4-(chloromethyl)-1H-imidazole.</p>
+<h4 id="2-2-Reinforcement-Learning"><a href="#2-2-Reinforcement-Learning" class="headerlink" title="2.2. Reinforcement Learning"></a>2.2. Reinforcement Learning</h4><p>考虑一个Agent，对于某个状态_s_属于<strong>S</strong>，必须选择行动_a_属于<strong>A</strong>；这里<strong>S</strong>是可能状态的集合，<strong>A</strong>是相应状态的行动的集合。一个Agent的策略<strong>policy π(_a_|_s_)</strong>将每一个状态state的概率匹配到每一个行动。许多增强学习框架被认为是Markov决策过程，即指当前状态包含所有用于决策的信息，而不需要了解之前的状态的历史。我们可以将这个概念一般化为部分观测的Markov决策过程，Agent可以与环境的不完整展示作用。另<strong>r(_a_|_s_)</strong>为在某一状态下采取某一行动的优秀程度的回馈<strong>reward</strong>，长期回馈<strong> G(a<sub>t</sub>, S<sub>t</sub> = ∑<sup>T</sup><sub>t</sub> r<sub>t</sub>)</strong>代表到时间T为止的累计回馈。由于化学分子的可靠性只有在完整SMILES是才有效，因此我们将只评估完整序列的返回。</p>
+<p>在给出状态下的一系列行动中获得收益，增强学习的目的及在于如何提高策略Agent下的累计回馈期望<strong>E(G)</strong>。一个在step <strong>_T_</strong> 下具有明确终止点的任务被称为<strong>episodic task</strong>，生成SMILES即是一episodic task。</p>
+<p>用来训练agent的状态和行动既可以由agent自身生成，也可以由其他方式生成，分别称为<strong>on-policy</strong>和<strong>off-polict</strong>。off-policy和on-policy的根本区别在于off-policy学习的policy和agent实际执行的policy并不相同。</p>
+<p><img src="http://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs13321-017-0235-x/MediaObjects/13321_2017_235_Fig4_HTML.gif" alt="Figure 4."><br><strong>Figure 4. The Prior and Agent Structure</strong></p>
+<h4 id="2-3-The-Prior-Network"><a href="#2-3-The-Prior-Network" class="headerlink" title="2.3. The Prior Network"></a>2.3. The Prior Network</h4><p>极大似然估计用于训练由3层1024个GRU(forget bias 5)构成的初始RNN。训练集为RDkit生成的150万CHEMBL数据库中分子的canonical SMILES，这些分子被限制在包含10 - 50个重原子，且元素包含于{<em>H, B, C, N, O, F, Si, P, S, Cl, Br, I</em>}。模型使用最陡梯度下降法训练5000步，batch大小为128，使用Adam optimizer (β<sub>1</sub> = 0.9, β<sub>2</sub> = 0.9, ϵ = 10<sup>-8</sup>)，一个初始learning rate为0.001和一个100步衰减的learning rate 0.02。梯度限制在[-3, 3]，使用Tensoflow执行Prior以及增强学习Agent。</p>
+<h4 id="2-3-The-Agent-Network"><a href="#2-3-The-Agent-Network" class="headerlink" title="2.3. The Agent Network"></a>2.3. The Agent Network</h4><p>我们限制将问题表示为通过一个部分观测的Markov决策过程的RNN，产生一个具有期望属性分子的SMILES。这一过程中，agent必须在给出当前cell时做出决定接下来选择哪一个字符character。我们使用Prior模型中学习到的条件概率分布作为先验策略。我们称使用先验策略prior policy的网络为<strong><em>Prior</em></strong>，修改后的网络为<strong><em>Agent</em></strong>。任务是episodic的，从RNN的第一步开始直到EOS token被采样。行动序列<strong>A = a1, a2, …, aT</strong>代表了这一eposid中产生的SMILES，而行动概率的积<strong>P(A) = ∏<sup>T</sup><sub>t=1</sub> π(a<sub>t</sub>∣s<sub>t</sub>)</strong>代表了生成序列的概率。</p>
+<p>另<strong><em>S(A)</em></strong> &lt;- <strong>[-1, 1]</strong>作为打分函数，粗糙地评价生成的SMILES序列是否含有期望的属性。所以现在就变成了从先验<strong><em>π<sub>prior</sub></em></strong>更新agent的policy <strong>_π_</strong>，以达到提高生成序列的期望打分。但我们同时也想将新的policy与prior policy相锚定，绑定prior policy学习到的SMILES语法和CHEMBL数据库的化学结构分布。因此我们定义扩张的似然度 <strong> logP(A)<sub>𝕌</sub></strong>：</p>
+<blockquote>
+<p>logP(A)<sub>𝕌</sub> = logP(A)<sub>Prior</sub> + σS(A)</p>
+</blockquote>
+<p>其中σ是一个标量系数。因此序列A的回馈<strong>_G(A)</strong>可以被视为Agent似然度<strong>log P(A)<sub>A</sub></strong>和扩张似然度的协同：</p>
+<blockquote>
+<p>G(A) = −[logP(A)<sub>𝕌</sub> −logP(A)<sub>𝔸</sub>]<sup>2</sup></p>
+</blockquote>
+<p>因此Agent的目的即为学习一种可以最大化期望回馈的policy，即最小化损失函数<strong><em>L(Θ) = -G</em></strong>。Agent使用on-policy方法训练，在一个batch为128生成序列上，在每次生成batch和打分后更新π。使用learning rate为0.0005，梯度属于[-3, 3]的标准梯度下降法。</p>
+<h4 id="2-5-The-DRD2-activity-model"><a href="#2-5-The-DRD2-activity-model" class="headerlink" title="2.5 The DRD2 activity model"></a>2.5 The DRD2 activity model</h4><p>应用过程使用Dopamine D2 Receptor，DRD2作为靶标蛋白，相应的活性数据收集于ExCAPE-DB数据库。在这一数据集中，7218个活性化合物pIC<sub>50</sub> &gt; 5， 343204非活性化合物pIC<sub>50</sub> &lt; 5。随机取出100,000个非活性化合物子集。为了减少近邻相似性nearest neighbour similarity，活性分子产生Extended Connectivity Molecular Figerprint with diameter 6 (ECMFP6)指纹，使用RDKit的Butina聚类方法根据Tanimoto相似性进行聚类，cutoff为0.4。聚类中心分子被选出。这些聚类根据大小排序并逐个分给测试test，检验validation，训练集train，比例分别为1/6, 1/6, 4/6。与actives不超过0.5%的相似分子的inactives使用相同比例分配。</p>
+<h3 id="3-Results-and-Discussion"><a href="#3-Results-and-Discussion" class="headerlink" title="3. Results and Discussion"></a>3. Results and Discussion</h3><h4 id="3-1-Structure-generation-by-Prior"><a href="#3-1-Structure-generation-by-Prior" class="headerlink" title="3.1. Structure generation by Prior"></a>3.1. Structure generation by Prior</h4><p>初始训练后，Prior生成的94%的序列是有效的分子结构，其中90%是区别于训练集的新结构。Figure 5显示了SMILES的生成，每一个token都存在一个Prior产生的条件概率分布。在这一例子中，O如果被采样，C、N和卤素均有可能被采出，-0.3 C，-2.7 N，-1.8 O，-5.0 F和Cl。</p>
+<p>有几种观测现象：</p>
+<ol>
+<li>若n被采样，会导致开环</li>
+<li>若芳香环开环，芳香原子c，n，o，s变为probable，直到5,6步后闭环</li>
+<li>学习到了多环结构的语法，一旦编码1被使用，新的环将会使用2</li>
+</ol>
+<p><img src="http://media.springernature.com/lw785/springer-static/image/art%3A10.1186%2Fs13321-017-0235-x/MediaObjects/13321_2017_235_Fig5_HTML.gif" alt="Figure. 5"><br><strong>Figure 5. Conditional probability over the next token as a function of previously chosen ones according to the model.</strong></p>
+<h4 id="3-2-Learning-to-avoid-sulphur"><a href="#3-2-Learning-to-avoid-sulphur" class="headerlink" title="3.2. Learning to avoid sulphur"></a>3.2. Learning to avoid sulphur</h4><p>为了验证Agent可以根据条件训练为不产生含硫S的分子，定义打分函数：</p>
+<blockquote>
+<p>S(A) = 1, 0, −1<br>if valid and no S, if not valid, if contains S</p>
+</blockquote>
+<p>Agent使用σ = 2训练1000步，并且使用Prior和Agent分别产生12800个分子就行比较，结果如Table 1。分子属性使用RDkit计算。</p>
+<h4 id="3-3-Similarity-guided-structure-generation"><a href="#3-3-Similarity-guided-structure-generation" class="headerlink" title="3.3 Similarity guided structure generation"></a>3.3 Similarity guided structure generation</h4><p>下一个任务是能否根据query Structure产成相似结构。因此使用分子指纹的相似系数衍生的打分函数：</p>
+<blockquote>
+<p>S(A) = −1 + 2 × min{J<sub>i, j </sub>, k}/k</p>
+</blockquote>
+<p>这定义了分子与query结构相似度k &lt;- [0, 1]所对应的回馈为[-1, 1]。首先使用Celecoxib为query，采用较强的k = 1和sigma = 15条件下的采样，在200步后即生成了Celecoxib。</p>
+<p>第二次使用了不含有Celecoxib与相似性大于0.5的分子的CHEMBL训练集，重新训练得到reduced Prior<br>，并与之前的canonical Prior进行比较。然后一个基于reduced Prior的Agent模型进行训练，在400步后，开始找到Celecoxib，在1000步后Celecoxib成为主要的结构产出，占比达到1/3。见Figure 7.</p>
+<p><img src="http://media.springernature.com/lw785/springer-static/image/art%3A10.1186%2Fs13321-017-0235-x/MediaObjects/13321_2017_235_Fig7_HTML.gif" alt="Figure 7."><br><strong>Figure 7. Evolution of generated structures during training Structures sampled </strong></p>
+<h4 id="3-4-Target-activity-guided-Structure-generation"><a href="#3-4-Target-activity-guided-Structure-generation" class="headerlink" title="3.4 Target activity guided Structure generation"></a>3.4 Target activity guided Structure generation</h4><p>接下来使用具有生物活性的分子进行优化，即也是一种inverse QSAR的方法。如前所属，DRD2被作为标靶，活性的分子分别分为了1405，1287，4526三个集合。聚类减少了近邻相似性为0.53，随机为0.69.<br>打分函数变为：</p>
+<blockquote>
+<p>S(A) = −1 + 2 × P<sub>active</sub><br>这里貌似对P<sub>active</sub>没有解释，稍后阅读代码更新</p>
+</blockquote>
+<p>Agents在sigma = 7的条件下训练3000步，Prior和对应的Agent分别产生128000条序列进行对比。训练后，预测的DRD2的活性化合物结构的占比由Prior的0.02提高到Agent的0.96 (Table 3)。测试集中的分子在两种Prior中的recover率为0%，在canonical Prior产生的Agent中为13%，reduced Prior产生的Agent中为7%。这表明我们可以产生<strong>“novel”</strong>的结构，并且既不属于DRD2活性模型也不属于Prior和实验验证的活化产物。</p>
+<p>基于reduce Prior的Agent和基于canonical Prior的Agent在预测活性分子时具有相似效果，与已知的活性分子相似性却较低。</p>
+<p>Figure 9显示出reduced Prior和对应的Agent的条件概率分布，可以看到增强学习后的概率分布并不会有剧烈的变化。但只要条件概率分布在某一步有一个较大的改变，就会对序列的极大似然度产生巨大的变化，从而改变生成的结构。</p>
+<p><img src="https://birdlet.github.io/picture/molecular_design_10.png" alt="Table. 3"><br><strong>Table 3. Performance of the DRD2 activity model</strong></p>
+<h3 id="4-Conclusion"><a href="#4-Conclusion" class="headerlink" title="4. Conclusion"></a>4. Conclusion</h3><ol>
+<li>RNN是一种处理SMILES结构的有效方法。</li>
+<li>对其他的RNN参数的调整值得进一步研究，也可以对token embedings方法进行增加。</li>
+<li>以上的例子均使用了单变量打分函数，但实际上可以增加如目标活性，DMPK，合成可能性等多参数的打分函数。</li>
+</ol>
+<h3 id="读书笔记"><a href="#读书笔记" class="headerlink" title="读书笔记"></a>读书笔记</h3><p>其实文章只给了一些简单的例子，在应用过程中即便对RNN不甚了解，也可以尝试更改打分函数，来增加生成分子的限制。作者的github代码从TF/Python2.7更新为了PyTorch/Python3.6，希望自己有时间可以仔细阅读他的代码吧！</p>
+<p>另外也有研究者开始使用GAN来达成相同目的，不过论文可读性还是这一篇更好学习些。</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p>Olivecrona, M., Blaschke, T., Engkvist, O., &amp; Chen, H. (2017). Molecular De Novo Design through Deep Reinforcement Learning. arXiv preprint arXiv:1704.07555.</p>
+<p>Segler MHS, Kogej T, Tyrchan C, Waller MP (2017) Generating focussed molecule libraries for drug discovery with recurrent neural networks. arXiv:1701.01329</p>
+<p>Hochreiter S, Schmidhuber J (1997) Long short-term memory. Neural Comput 9(8):1735–1780. doi:<a href="https://doi.org/10.1162/neco.1997.9.8.1735" target="_blank" rel="noopener">https://doi.org/10.1162/neco.1997.9.8.1735</a></p>
+<p>Sun J, Jeliazkova N, Chupakin V, Golib-Dzib J-F, Engkvist O, Carlsson L, Wegner J, Ceulemans H, Georgiev I, Jeliazkov V, Kochev N, Ashby TJ, Chen H (2017) Excape-db: an integrated large scale dataset facilitating big data analysis in chemogenomics. J Cheminform 9(1):17. doi:<a href="https://doi.org/10.1186/s13321-017-0203-5" target="_blank" rel="noopener">https://doi.org/10.1186/s13321-017-0203-5</a></p>
+
+    </div>
+</article>
+                </main>
+                <aside class="aside">
+                    <section class="aside-section">
+                        
+    <h1>Categories</h1>
+
+    
+
+                    </section>
+                    <section class="aside-section">
+                        
+    <h1>Archives</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li></ul>
+
+
+                    </section>
+                    <section class="aside-section tag">
+                        
+    <h1>Tags</h1>
+
+    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bioinformatics/">Bioinformatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cheminformatics/">Cheminformatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Biology/">Computational Biology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ensembl/">Ensembl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notes/">Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Papers/">Papers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/biomaRt/">biomaRt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cheminfomatics/">cheminfomatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computational-biology/">computational biology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/contact-map/">contact map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdtrj/">mdtrj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oddt/">oddt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdkit/">rdkit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a></li></ul>
+
+                    </section>
+                </aside>
+        </div>
+    </body>
+
+</html>

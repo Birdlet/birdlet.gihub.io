@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="keywords" content="hexo, autumn">
+    <title>
+        Life is Worth Living
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@1.0.0/dist/hexo-infinite-scroll.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@1.0.0/dist/hexo-infinite-scroll.min.js"></script>
+    <script>
+        infiniteScroll()
+
+        // for mobile menu
+        $(function () {
+            $('.social-button').click(function () {
+                if ($('.social-links').hasClass('hide-links')) {
+                    $('.social-links').removeClass('hide-links')
+                } else {
+                    $('.social-links').addClass('hide-links')
+                }
+            })
+        })
+    </script>
+</head>
+
+    <body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <div class="container">
+            <header class="header">
+    <h1 class="title">
+        <a href="/" class="logo">
+            Life is Worth Living
+        </a>
+    </h1>
+    <h2 class="desc">
+        
+    </h2>
+
+    <nav class="links">
+        <button class="social-button">
+            menu
+        </button>
+        <ul class="social-links hide-links">
+            
+                <li>
+                    <a href="https://github.com/Birdlet">
+                        Github
+                    </a>
+                </li>
+                
+        </ul>
+    </nav>
+</header>
+                <main class="main">
+                    <article class="post">
+    
+    
+    
+    <h2 class="post-title">
+        A Simple Python Script to Convert FASTA file to CSV format
+    </h2>
+    <ul class="post-date">
+        <li>
+            2017-12-13
+        </li>
+        <li>
+            Birdlet
+        </li>
+    </ul>
+    <div class="post-content">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<p>I have searched online for converting FASTA file into CSV format for sequence visualization like the output from <a href="http://gpcrdb.org/" target="_blank" rel="noopener">GPCRdb.org</a>, but I didn’t find what I want. So I wrote this simple and dirty script to convert FASTA to CSV.</p>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#-*-coding:utf-8-*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys, os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &lt;= <span class="number">1</span>:</span><br><span class="line">    print(<span class="string">'\nPlease provide input FASTA file.\n'</span>)</span><br><span class="line">    print(<span class="string">'Usage:\nfasta2csv.py input.fst output.csv\n'</span>)</span><br><span class="line">    sys.exit()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> sys.argv[<span class="number">1</span>] == <span class="string">'-h'</span> <span class="keyword">or</span> sys.argv[<span class="number">1</span>] == <span class="string">'help'</span><span class="keyword">or</span> sys.argv[<span class="number">1</span>] == <span class="string">'-help'</span>:</span><br><span class="line">    print(<span class="string">'\nUsage:\npython fasta2csv.py  input.fst  output.csv\n'</span>)</span><br><span class="line">    sys.exit()</span><br><span class="line"></span><br><span class="line">input = sys.argv[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(input):</span><br><span class="line">    print(<span class="string">'\nError: File "%s" is not exist!\n'</span> % input)</span><br><span class="line">    sys.exit()</span><br><span class="line"></span><br><span class="line">output = <span class="string">'output.csv'</span></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &gt; <span class="number">2</span>:</span><br><span class="line">    output = sys.argv[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Read in FASTA</span></span><br><span class="line">file = open(input, <span class="string">'r'</span>)</span><br><span class="line">lines_i = file.readlines()</span><br><span class="line">seq = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> lines_i:</span><br><span class="line">    <span class="keyword">if</span> l[<span class="number">0</span>] == <span class="string">'&gt;'</span>:</span><br><span class="line">        <span class="string">'Fasta head line'</span></span><br><span class="line">        seq_id = l.strip()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="string">'Sequence line'</span></span><br><span class="line">        seq += l.strip()</span><br><span class="line"></span><br><span class="line">file.close()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'The Input file is: %s'</span> %input)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Convert FASTA to CSV</span></span><br><span class="line">l = []</span><br><span class="line">lines = [str(seq_id) + <span class="string">'\n'</span>]</span><br><span class="line"><span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(seq):</span><br><span class="line">    l.append(c)</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">60</span> == <span class="number">59</span>:</span><br><span class="line">        lines.append(<span class="string">','</span>.join(l) + <span class="string">'\n'</span>)</span><br><span class="line">        l = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> l != []:</span><br><span class="line">    lines.append(<span class="string">','</span>.join(l) + <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Output CSV file</span></span><br><span class="line">file = open(output, <span class="string">'w'</span>)</span><br><span class="line">file.writelines(lines)</span><br><span class="line">file.close()</span><br><span class="line">print(<span class="string">'The Output file is: %s'</span> %output)</span><br></pre></td></tr></table></figure>
+<p>This script is unmature but good for use. It can convert a FASTA file containing one sequence into a CSV file, each residue are a single elemnt of CSV file. It is verty straightfoward so anyone can simply modify it for their own purpose.</p>
+<p>Download <a href="https://birdlet.github.io/picture/fasta2csv.py" target="_blank" rel="noopener">fasta2csv</a></p>
+
+    </div>
+</article>
+                </main>
+                <aside class="aside">
+                    <section class="aside-section">
+                        
+    <h1>Categories</h1>
+
+    
+
+                    </section>
+                    <section class="aside-section">
+                        
+    <h1>Archives</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li></ul>
+
+
+                    </section>
+                    <section class="aside-section tag">
+                        
+    <h1>Tags</h1>
+
+    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bioinformatics/">Bioinformatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cheminformatics/">Cheminformatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Biology/">Computational Biology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ensembl/">Ensembl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notes/">Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Papers/">Papers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/biomaRt/">biomaRt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cheminfomatics/">cheminfomatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computational-biology/">computational biology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/contact-map/">contact map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdtrj/">mdtrj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oddt/">oddt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdkit/">rdkit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a></li></ul>
+
+                    </section>
+                </aside>
+        </div>
+    </body>
+
+</html>

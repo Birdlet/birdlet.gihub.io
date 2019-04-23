@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="keywords" content="hexo, autumn">
+    <title>
+        Life is Worth Living
+    </title>
+    <!-- favicon -->
+    
+    <link rel="icon" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- highlight -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/github-gist.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad()
+    </script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@1.0.0/dist/hexo-infinite-scroll.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/frontendsophie/hexo-infinite-scroll@1.0.0/dist/hexo-infinite-scroll.min.js"></script>
+    <script>
+        infiniteScroll()
+
+        // for mobile menu
+        $(function () {
+            $('.social-button').click(function () {
+                if ($('.social-links').hasClass('hide-links')) {
+                    $('.social-links').removeClass('hide-links')
+                } else {
+                    $('.social-links').addClass('hide-links')
+                }
+            })
+        })
+    </script>
+</head>
+
+    <body style="background: url(https://cdn.jsdelivr.net/gh/frontendsophie/hexo-theme-autumn@1.0.0/source/img/button-bg.png) #f3f3f3">
+        <div class="container">
+            <header class="header">
+    <h1 class="title">
+        <a href="/" class="logo">
+            Life is Worth Living
+        </a>
+    </h1>
+    <h2 class="desc">
+        
+    </h2>
+
+    <nav class="links">
+        <button class="social-button">
+            menu
+        </button>
+        <ul class="social-links hide-links">
+            
+                <li>
+                    <a href="https://github.com/Birdlet">
+                        Github
+                    </a>
+                </li>
+                
+        </ul>
+    </nav>
+</header>
+                <main class="main">
+                    
+<section class="posts">
+    
+        <article class="post">
+            
+                    <h1 class="post-title">
+                        <a href="/2018/06/06/rdkit_svg_web/">
+                            Render molecules as inline SVG in web by RDkit
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            June 6, 2018
+                        </li>
+                        <li>
+                            Birdlet
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<p>There are two kinds of images: bitmap and vetorgram in the computer. The vectorgram is very suitable for illustrating chemical structures which can be easily drawled by edge and text.</p>
+<p>The RDKit package can draw chemical structures in bitmap or vactorgram with only several codes. Sometime we want to dynamically render high quality figures of molecules in web, and the SVG format is the best choice to do this.</p>
+                            <a href="/2018/06/06/rdkit_svg_web/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+        <article class="post">
+            
+                    <h1 class="post-title">
+                        <a href="/2017/07/30/elecroshape/">
+                            Shape Similarity and Electroshape Similarity Calculation
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            July 30, 2017
+                        </li>
+                        <li>
+                            Birdlet
+                        </li>
+                    </ul>
+                    
+                        <div class="post-cover">
+                            <img src="https://birdlet.github.io/picture/electroshape1.png">
+                        </div>
+                    
+                    <div class="post-content ">
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<p>Now I want to introduce <strong>Molecular Shape Comparison</strong> function of <a href="https://oddt.readthedocs.io/en/latest/" target="_blank" rel="noopener"><strong>Open Drug Discovery Toolkit</strong></a> (oddt). First of all, 3D structure of molecular is required for the calculation, and I use Maestro to generate MOL2 file of example moleculars.</p>
+                            <a href="/2017/07/30/elecroshape/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+        <article class="post">
+            
+                    <h1 class="post-title">
+                        <a href="/2017/07/29/interaction_fp/">
+                            Interaction coverage of Protein-Ligand system
+                        </a>
+                    </h1>
+
+                    <ul class="post-date">
+                        <li>
+                            July 29, 2017
+                        </li>
+                        <li>
+                            Birdlet
+                        </li>
+                    </ul>
+                    
+                    <div class="post-content ">
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<p>Recently, I read blog from iwantobipen and found a python package for drug design, and it is called <a href="https://oddt.readthedocs.io/en/latest/" target="_blank" rel="noopener"><strong>Open Drug Discovery Toolkit</strong></a> (oddt). Based on RDkit and OpenBable, it has two amazing function:</p>
+<ul>
+<li><strong>ligand-protein interaction finger print</strong></li>
+<li><strong>electronic shape similarity calculation</strong></li>
+</ul>
+<p>Here I want to show you about the function of interaction calculation. All interaction, even including <strong>halogen bond</strong>, <strong>pi-pi stacting</strong> and <strong>cation-pi intercation</strong>.</p>
+                            <a href="/2017/07/29/interaction_fp/" class="more-link">Continue reading</a>
+                    </div>
+        </article>
+        
+</section>
+
+                </main>
+                <aside class="aside">
+                    <section class="aside-section">
+                        
+    <h1>Categories</h1>
+
+    
+
+                    </section>
+                    <section class="aside-section">
+                        
+    <h1>Archives</h1>
+
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li></ul>
+
+
+                    </section>
+                    <section class="aside-section tag">
+                        
+    <h1>Tags</h1>
+
+    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bioinformatics/">Bioinformatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cheminformatics/">Cheminformatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Biology/">Computational Biology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ensembl/">Ensembl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notes/">Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Papers/">Papers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R/">R</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/biomaRt/">biomaRt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cheminfomatics/">cheminfomatics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/computational-biology/">computational biology</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/contact-map/">contact map</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mdtrj/">mdtrj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oddt/">oddt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rdkit/">rdkit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/">test</a></li></ul>
+
+                    </section>
+                </aside>
+        </div>
+    </body>
+
+</html>
